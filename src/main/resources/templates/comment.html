@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://wwww.thymleaf.org">
+<head th:replace="~{fragments/title}"></head>
+<body>
+<div class="container">
+    <!--<div class="container-fluid">-->
+    <div th:replace="~{fragments/header :: logo}"></div>
+    <div th:replace="~{fragments/header :: menu}"></div>
+
+    <div>Comment</div>
+    <div th:fragment="commentFragment">
+        <div th:each="comment : ${com}">
+            <div>  - <span th:text="${comment.comment}"></span></div>
+            <div style="margin-left: 20px" th:include="~{comment :: commentFragment}"
+            th:with="com=${comment.childrenComments}"></div>
+        </div>
+        </div>
+    </div>
+    <!--
+      <div class="row mt-3">
+        <div class="col-12">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li th:class="'page-item ' + ${number == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/movies/{id}(id = ${number})}" tabindex="-1">Previous</a>
+              </li>
+              <li>
+                <a class="page-link" th:href="@{/movies/{id}(id = ${number}+2)}" tabindex="-1">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    -->
+    <div th:replace="~{fragments/footer :: footer}">
+    </div>
+
+</div>
+
+<!--<div th:insert="~{fragments/scripts}"> </div>-->
+<div th:insert="~{fragments/scripts}"> </div>
+<!--insert вставляемый текст будет между div-ми
+replace вставляемый текст будет вместо div-а -->
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+index.html
+                        <div>Год производства - [[${movie.year}]]</div>
+                        <div>Рейтинг - [[${movie.rating}]]</div>
+                        <div>Жанры - [[${movie.genre}]]</span></div>
+
+                        <div>
+                        <div>Режиссеры</div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" th:each="director : ${movie.director}">
+                                <span th:text="${director.name}"></span>
+                                <span th:text="${director.surname}"></span>
+                            </li>
+                        </ul>
+                        </div>
+
+                        <div>
+                        <div>Актеры </div>
+                            <span th:each="actor, iter : ${movie.actor}">
+                                [[${actor.name}]] [[${actor.surname}]][[${iter.last} ? '' : ', ']]
+                            </span>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item" th:each="actor : ${movie.actor}">
+                                    <span th:text="${actor.name}"></span>
+                                    <span th:text="${actor.surname}"></span>
+                                </li>
+                            </ul>
+                        </div>
+
+
+MovieController class
+                        Movie movie = movieRepositories.findById(15).get();
+                        model.addAttribute("movie",movie);
+
+                        Iterable<Movie> movies = movieRepositories.findAll();
+                        model.addAttribute("movies", movies);

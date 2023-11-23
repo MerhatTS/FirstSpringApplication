@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://wwww.thymleaf.org">
+<head th:replace="~{fragments/title}"></head>
+<body>
+<style>
+    .text-right {
+        text-align: right;
+        padding-top: 3px;
+    }
+</style>
+<div class="container">
+    <!--<div class="container-fluid">-->
+    <div th:replace="~{fragments/header :: logo}"></div>
+    <div th:replace="~{fragments/header :: menu}"></div>
+
+    <div class="row mp3">
+        <div class="text-center mt-3 col-4">
+            <img th:src="@{/img2.png}" class="card-img-top" alt="img">
+        </div>
+
+        <div class="card-body">
+            <form th:action="@{/movie/edit/{id}(id = ${movie.id})}" method="POST">
+                <input type="hidden" class="form-control" id="id" name="id" th:value="${movie.id}">
+                <div class="mb-3">
+                    <div class="row mt-2">
+                        <div class="col-4 text-right">
+                            <label for="name" class="form_label">Name film: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="name" name="name" th:value="${movie.name}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4 text-right">
+                            <label for="year" class="form_label">Film year: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="number" class="form-control" id="year" name="year" th:value="${movie.year}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4 text-right">
+                            <label for="genre" class="form_label">Film genre: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="genre" name="genre" th:value="${movie.genre}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4 text-right">
+                            <label for="movie_rating" class="form_label">Film rating: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="number" min="0" max="10" step="0.1" class="form-control" id="movie_rating" name="rating" th:value="${movie.rating}">
+                            <div class="fs-6 text-danger" th:text="${errorRating}"></div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4 text-right">
+                            <label for="count" class="form_label">Film count: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="number" class="form-control" id="count" name="count" th:value="${movie.count}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4 text-right">
+                            <label class="form_label">Film actor: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control mt-2" name="actor" th:each="actor : ${movie.actor}" th:value="${actor.name} + ' ' + ${actor.surname}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4 text-right">
+                            <label class="form_label">Film director: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control mt-2" name="director" th:each="director : ${movie.director}" th:value="${director.name} + ' ' + ${director.surname}">
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <a th:href="@{/movie/{id}(id = ${movie.id})}">
+                    <button type="button" class="btn btn-outline-primary">Back</button>
+                </a>
+                <button type="submit" class="btn btn-outline-primary">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div>Film</div>
+    <div th:text="${movie.name}">Film</div>
+
+    <div th:replace="~{fragments/footer :: footer}">
+    </div>
+
+</div>
+
+<!--<div th:insert="~{fragments/scripts}"> </div>-->
+<div th:insert="~{fragments/scripts}"> </div>
+<!--insert вставляемый текст будет между div-ми
+replace вставляемый текст будет вместо div-а -->
+
+</body>
+</html>

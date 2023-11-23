@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://wwww.thymleaf.org">
+<head th:replace="~{fragments/title}"></head>
+<body>
+    <div class="container">
+    <!--<div class="container-fluid">-->
+        <div th:replace="~{fragments/header :: logo}"></div>
+        <div th:replace="~{fragments/header :: menu}"></div>
+
+        <div>Film</div>
+
+
+        <div class="card-body">
+            <form th:action="@{/movies/filter}" method="POST">
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="name" class="form_label text-right">Название фильма</label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text" class="form-control" id="name" name="name" th:value="${filter.name}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <label for="yearFrom" class="form_label text-right">Год издания</label>
+                        </div>
+                        <div class="col-2">
+                            <input style="display: inline" type="number" class="form-control" id="yearFrom" name="yearFrom" th:value="${filter.yearFrom}">
+                        </div>
+                        <div class="col-2">
+                            <input style="..." type="number" class="form-control" id="yearTo" name="yearTo" th:value="${filter.yearTo}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <label for="rating" class="form_label text-right">Рейтинг фильма</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="form-control" id="rating" step="0.1" name="rating" th:value="${filter.rating}">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <label for="actorName" class="form_label">Актер name</label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text" class="form-control" id="actorName" name="actorName" th:value="${filter.actorName}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <label for="actorSurname" class="form_label">Актер surname</label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text" class="form-control" id="actorSurname" name="actorSurname" th:value="${filter.actorSurname}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <label for="directorName" class="form_label text-right">Режиссер name</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="directorName" name="directorName" th:value="${filter.directorName}">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <label for="directorSurname" class="form_label text-right">Режиссер surname</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="directorSurname" name="directorSurname" th:value="${filter.directorSurname}">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-primary">Поиск</button>
+            </form>
+        </div>
+
+
+        <div class="row mt-3">
+            <div class="col-3 mt-3" th:each="movie,iter : ${movies}">
+                <div class="card" style="width: 18rem;">
+                    <img th:src="@{/img.png}" class="card-img-top" alt="изображение фильма">
+                    <div>ID film [[${movie.id}]]</div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${movie.name}"></h5>
+                        <div>movie year [[${movie.year}]]</div>
+                        <div>movie rating [[${movie.rating}]]</div>
+                        <div style="margin-top:20px">
+                            <a th:href="@{/movie/{id}(id = ${ movie.id })}">
+                                <button type="button" class="btn btn-outline-primary">Подробнее</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--<img th:src="@{img.png}">
+                <div th:text="${movie.name}"></div>-->
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li th:class="'page-item ' + ${number == 0 ? 'disabled' : ''}">
+                            <a class="page-link" th:href="@{/movies/{id}(id = ${number})}" tabindex="-1">Previous</a>
+                        </li>
+                        <li>
+                            <a class="page-link" th:href="@{/movies/{id}(id = ${number}+2)}" tabindex="-1">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}">
+        </div>
+
+    </div>
+
+    <!--<div th:insert="~{fragments/scripts}"> </div>-->
+    <div th:insert="~{fragments/scripts}"> </div>
+    <!--insert вставляемый текст будет между div-ми
+    replace вставляемый текст будет вместо div-а -->
+
+</body>
+</html>

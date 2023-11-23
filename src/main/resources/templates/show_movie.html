@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://wwww.thymleaf.org">
+<head th:replace="~{fragments/title}"></head>
+<body>
+<div class="container">
+    <!--<div class="container-fluid">-->
+    <div th:replace="~{fragments/header :: logo}"></div>
+    <div th:replace="~{fragments/header :: menu}"></div>
+
+    <div class="row mp3">
+        <div class="text-center mt-5 col-5">
+            <img th:src="@{/img2.png}" class="card-img-top" alt="img">
+        </div>
+
+        <div class="card-body">
+            <h5 class="card-title">Name <span th:text="${movie.name}"></span> </h5>
+            <div class="fs-5">Year - <span th:text="${movie.year}"></span></div>
+            <div class="fs-5">Rating - [[${movie.rating}]]</div>
+            <div class="fs-5">Genre - <span th:text="${movie.genre}"></span></div>
+            <div class="fs-5">
+                Actor - <span th:each="actor,iter : ${movie.actor}" th:text="${actor.name} + ' ' + ${actor.surname} + ${iter.last ? '' : ', '}"></span>
+            </div>
+            <div class="fs-5">
+                Director - <span th:each="director,iter : ${movie.director}" th:text="${director.name} + ' ' + ${director.surname} + ${iter.last ? '' : ', '}"></span>
+            </div>
+
+            <div class="fs-5">
+                Comments:
+            </div>
+            <div th:include="~{comment :: commentFragment}"
+            th:with="com=${movie.comments}"></div>
+
+
+        </div>
+
+
+
+
+        <div style="margin-top:20px">
+            <a th:href="@{/movies}">
+                <button type="button" class="btn btn-outline-primary">Back</button>
+            </a>
+            <a th:href="@{/movie/delete/{id}(id = ${movie.id})}">
+                <button type="button" class="btn btn-outline-primary">Delete</button>
+            </a>
+            <a th:href="@{/movie/edit/{id}(id = ${movie.id})}">
+                <button type="button" class="btn btn-outline-primary">Remove</button>
+            </a>
+
+        </div>
+
+
+
+    </div>
+
+    <div>Film film</div>
+    <div th:text="${movie.name}"></div>
+
+    <div th:replace="~{fragments/footer :: footer}">
+    </div>
+
+</div>
+
+<!--<div th:insert="~{fragments/scripts}"> </div>-->
+<div th:insert="~{fragments/scripts}"> </div>
+<!--insert вставляемый текст будет между div-ми
+replace вставляемый текст будет вместо div-а -->
+
+</body>
+</html>

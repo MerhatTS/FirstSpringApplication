@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://wwww.thymleaf.org">
+<head th:replace="~{fragments/title}"></head>
+<body>
+<div class="container">
+  <!--<div class="container-fluid">-->
+  <div th:replace="~{fragments/header :: logo}"></div>
+  <div th:replace="~{fragments/header :: menu}"></div>
+
+  <div>TOP10</div>
+
+  <div class="row mt-3">
+    <div class="col-3 mt-3" th:each="movie, iter : ${movie}">
+      <div class="card" style="width: 18rem;">
+        <img th:src="@{/img.png}" class="card-img-top" alt="img">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${movie.name}"></h5>
+          <h5 class="card-title" th:text="${movie.rating}"></h5>
+
+          <div style="margin-top:20px">
+            <a th:href="@{/movie/{id}(id = ${ movie.id })}">
+              <button type="button" class="btn btn-outline-primary">Подробнее</button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!--<img th:src="@{img.png}">
+      <div th:text="${movie.name}"></div>-->
+    </div>
+  </div>
+  <div>Comment</div>
+  <div class="row mt-3">
+    <div class="col-3 mt-3" th:each="comment, iter : ${comment}">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${comment.comment}"></h5>
+          <h5 class="card-title" th:text="${comment.id}"></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    <div class="row mt-3">
+      <div class="col-12">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li th:class="'page-item ' + ${number == 0 ? 'disabled' : ''}">
+              <a class="page-link" th:href="@{/movies/{id}(id = ${number})}" tabindex="-1">Previous</a>
+            </li>
+            <li>
+              <a class="page-link" th:href="@{/movies/{id}(id = ${number}+2)}" tabindex="-1">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  -->
+  <div th:replace="~{fragments/footer :: footer}">
+  </div>
+
+</div>
+
+<!--<div th:insert="~{fragments/scripts}"> </div>-->
+<div th:insert="~{fragments/scripts}"> </div>
+<!--insert вставляемый текст будет между div-ми
+replace вставляемый текст будет вместо div-а -->
+
+</body>
+</html>

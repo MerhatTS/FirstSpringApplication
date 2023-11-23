@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://wwww.thymleaf.org">
+<head th:replace="~{fragments/title}"></head>
+<body>
+<div class="container">
+    <!--<div class="container-fluid">-->
+    <div th:replace="~{fragments/header :: logo}"></div>
+    <div th:replace="~{fragments/header :: menu}"></div>
+
+    <div class="row mt-3 mb-5 text-center">
+        <h1>Страница не найдена</h1>
+        <a href="/">Вернутся на главную страницу</a>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}">
+    </div>
+
+</div>
+
+<div th:insert="~{fragments/scripts}"> </div>
+
+
+</body>
+</html>
